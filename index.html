@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUT BUILDCONNECT - Connecting Graduates with Opportunities</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #c0392b;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1500&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .dashboard {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-header h2 {
+            color: var(--primary);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+        }
+
+        .tab.active {
+            border-bottom: 3px solid var(--secondary);
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .project-card:hover {
+            box-shadow: var(--shadow);
+        }
+
+        .project-card h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .project-card p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-open {
+            background: #e6f7ee;
+            color: var(--success);
+        }
+
+        .status-closed {
+            background: #fcebec;
+            color: var(--secondary);
+        }
+
+        .page-nav {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin: 20px 0;
+        }
+
+        .page-nav ul {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .page-nav a {
+            color: var(--dark);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .page-nav a:hover, .page-nav a.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .content-section h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .content-section h3 {
+            color: var(--primary);
+            margin: 25px 0 15px;
+        }
+
+        .content-section p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content-section ul, .content-section ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .content-section li {
+            margin-bottom: 10px;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .contact-card {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .contact-card i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .contact-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .contact-form {
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-logo {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .auth-buttons {
+                flex-direction: column;
+                width: 100%;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+
+        .main-content {
+            display: block;
+        }
+
+        .info-content {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-hard-hat"></i>
+                    <h1>MUT BUILDCONNECT</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-main" data-section="main">Home</a></li>
+                        <li><a href="#" class="nav-main" data-section="main">Projects</a></li>
+                        <li><a href="#" class="nav-main" data-section="main">How It Works</a></li>
+                        <li><a href="#" class="nav-info" data-section="info">About</a></li>
+                        <li><a href="#" class="nav-info" data-section="info">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline">Login</button>
+                    <button class="btn btn-primary">Register</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <section class="hero">
+            <div class="container">
+                <h2>Connecting MUT Graduates with Practical Experience Opportunities</h2>
+                <p>Gain valuable work experience through volunteer opportunities on university projects and boost your employability after graduation.</p>
+                <button class="btn btn-primary">Find Opportunities</button>
+            </div>
+        </section>
+
+        <div class="container">
+            <section class="features">
+                <div class="feature-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>For Graduates</h3>
+                    <p>Find volunteer opportunities that match your skills and gain practical experience to enhance your CV.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-tools"></i>
+                    <h3>For Coordinators</h3>
+                    <p>Post projects and find qualified graduates to contribute to university development initiatives.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Build Connections</h3>
+                    <p>Network with industry professionals and build relationships that can lead to future employment.</p>
+                </div>
+            </section>
+
+            <section class="dashboard">
+                <div class="dashboard-header">
+                    <h2>Available Projects</h2>
+                    <button class="btn btn-primary">Post a Project</button>
+                </div>
+
+                <div class="tabs">
+                    <div class="tab active">All Projects</div>
+                    <div class="tab">Construction</div>
+                    <div class="tab">Renovation</div>
+                    <div class="tab">Research</div>
+                </div>
+
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h4>New Engineering Building Construction</h4>
+                        <p>Assist in the early stages of construction for the new engineering building on campus.</p>
+                        <div class="project-meta">
+                            <span><i class="far fa-calendar"></i> 3 months</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Main Campus</span>
+                        </div>
+                        <div class="status status-open">Open for Applications</div>
+                    </div>
+                    <div class="project-card">
+                        <h4>Library Renovation Project</h4>
+                        <p>Help renovate and modernize the main library study areas and facilities.</p>
+                        <div class="project-meta">
+                            <span><i class="far fa-calendar"></i> 2 months</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Library Building</span>
+                        </div>
+                        <div class="status status-open">Open for Applications</div>
+                    </div>
+                    <div class="project-card">
+                        <h4>Sustainable Building Materials Research</h4>
+                        <p>Participate in research on sustainable building materials for future construction projects.</p>
+                        <div class="project-meta">
+                            <span><i class="far fa-calendar"></i> 6 months</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Research Lab</span>
+                        </div>
+                        <div class="status status-open">Open for Applications</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard">
+                <h2>Registration Form</h2>
+                <p>Join MUT BUILDCONNECT to access volunteer opportunities</p>
+                
+                <form>
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input type="text" id="fullname" class="form-control" placeholder="Enter your full name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" placeholder="Enter your email">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="skills">Skills & Qualifications</label>
+                        <textarea id="skills" class="form-control" rows="4" placeholder="List your skills and qualifications"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="resume">Upload Qualification (PDF)</label>
+                        <input type="file" id="resume" class="form-control" accept=".pdf">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Submit Registration</button>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <div class="info-content">
+        <div class="container">
+            <div class="page-nav">
+                <ul>
+                    <li><a href="#about" class="nav-link active" data-target="about">About Us</a></li>
+                    <li><a href="#privacy" class="nav-link" data-target="privacy">Privacy Policy</a></li>
+                    <li><a href="#terms" class="nav-link" data-target="terms">Terms of Service</a></li>
+                    <li><a href="#contact" class="nav-link" data-target="contact">Contact</a></li>
+                    <li><a href="#faq" class="nav-link" data-target="faq">FAQ</a></li>
+                </ul>
+            </div>
+
+            <!-- About Us Section -->
+            <section id="about" class="content-section active">
+                <h2>About MUT BUILDCONNECT</h2>
+                <p>MUT BUILDCONNECT is a pioneering initiative by the Mangosuthu University of Technology (MUT) designed to bridge the gap between academic learning and practical work experience for Building Department graduates.</p>
+                
+                <h3>Our Mission</h3>
+                <p>Our mission is to empower MUT Building Department graduates by connecting them with volunteer opportunities on university projects, enabling them to gain valuable hands-on experience that enhances their employability and professional development.</p>
+                
+                <h3>Our Vision</h3>
+                <p>We envision a future where every MUT Building Department graduate has access to practical experience opportunities that complement their academic knowledge, creating well-rounded professionals ready to contribute meaningfully to the construction and building industry.</p>
+                
+                <h3>How We Started</h3>
+                <p>MUT BUILDCONNECT was established in 2023 in response to the challenges faced by graduates in securing employment due to lack of practical experience. Recognizing that the university itself had ongoing projects that could serve as training grounds, we created a platform to connect these two needs.</p>
+                
+                <h3>Our Team</h3>
+                <p>Our team consists of dedicated MUT faculty members, industry professionals, and former graduates who are committed to supporting the next generation of building and construction professionals. We work closely with industry partners to ensure our program remains relevant and impactful.</p>
+            </section>
+
+            <!-- Privacy Policy Section -->
+            <section id="privacy" class="content-section">
+                <h2>Privacy Policy</h2>
+                <p>Last Updated: October 28, 2023</p>
+                
+                <h3>1. Introduction</h3>
+                <p>At MUT BUILDCONNECT, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you use our platform.</p>
+                
+                <h3>2. Information We Collect</h3>
+                <p>We may collect the following types of information:</p>
+                <ul>
+                    <li>Personal identification information (name, email address, phone number)</li>
+                    <li>Academic and professional background information</li>
+                    <li>Resume/CV and portfolio documents</li>
+                    <li>Project preferences and application history</li>
+                    <li>Communication records between users and project coordinators</li>
+                </ul>
+                
+                <h3>3. How We Use Your Information</h3>
+                <p>We use your information to:</p>
+                <ul>
+                    <li>Match you with suitable volunteer opportunities</li>
+                    <li>Facilitate communication between graduates and project coordinators</li>
+                    <li>Improve our platform and services</li>
+                    <li>Send important updates and notifications</li>
+                    <li>Generate anonymized statistics for reporting purposes</li>
+                </ul>
+                
+                <h3>4. Data Security</h3>
+                <p>We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p>
+                
+                <h3>5. Your Rights</h3>
+                <p>You have the right to access, correct, or delete your personal information at any time by contacting us or through your account settings.</p>
+            </section>
+
+            <!-- Terms of Service Section -->
+            <section id="terms" class="content-section">
+                <h2>Terms of Service</h2>
+                <p>Last Updated: October 28, 2023</p>
+                
+                <h3>1. Acceptance of Terms</h3>
+                <p>By accessing or using MUT BUILDCONNECT, you agree to be bound by these Terms of Service and all applicable laws and regulations.</p>
+                
+                <h3>2. User Accounts</h3>
+                <p>To access certain features of our platform, you must create an account. You are responsible for maintaining the confidentiality of your account information and for all activities that occur under your account.</p>
+                
+                <h3>3. User Responsibilities</h3>
+                <p>As a user of MUT BUILDCONNECT, you agree to:</p>
+                <ul>
+                    <li>Provide accurate and complete information</li>
+                    <li>Use the platform only for lawful purposes</li>
+                    <li>Respect the confidentiality of other users</li>
+                    <li>Not engage in any fraudulent or misleading activities</li>
+                    <li>Comply with all applicable laws and regulations</li>
+                </ul>
+                
+                <h3>4. Volunteer Opportunities</h3>
+                <p>MUT BUILDCONNECT serves as a platform to connect graduates with volunteer opportunities. We do not guarantee placement in any specific project and are not responsible for the terms or conditions of any volunteer position.</p>
+                
+                <h3>5. Intellectual Property</h3>
+                <p>All content on the MUT BUILDCONNECT platform, including text, graphics, logos, and software, is the property of MUT or its content suppliers and protected by intellectual property laws.</p>
+                
+                <h3>6. Limitation of Liability</h3>
+                <p>MUT BUILDCONNECT shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of or inability to use the platform.</p>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="content-section">
+                <h2>Contact Us</h2>
+                <p>We'd love to hear from you! Reach out to us through any of the following channels:</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Visit Us</h3>
+                        <p>Mangosuthu University of Technology<br>
+                        Building Department<br>
+                        511 Griffiths Mxenge Highway<br>
+                        Umlazi, Durban, 4031</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <i class="fas fa-phone"></i>
+                        <h3>Call Us</h3>
+                        <p>General Inquiries: +27 (0)31 907 7111<br>
+                        Support Line: +27 (0)31 907 7222<br>
+                        Fax: +27 (0)31 907 7333</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email Us</h3>
+                        <p>General: info@buildconnect.mut.ac.za<br>
+                        Support: support@buildconnect.mut.ac.za<br>
+                        Projects: projects@buildconnect.mut.ac.za</p>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="contact-name">Your Name</label>
+                            <input type="text" id="contact-name" class="form-control" placeholder="Enter your name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-email">Email Address</label>
+                            <input type="email" id="contact-email" class="form-control" placeholder="Enter your email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-subject">Subject</label>
+                            <input type="text" id="contact-subject" class="form-control" placeholder="What is your message about?">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contact-message">Message</label>
+                            <textarea id="contact-message" class="form-control" placeholder="Type your message here..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section id="faq" class="content-section">
+                <h2>Frequently Asked Questions</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Who can join MUT BUILDCONNECT?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>MUT BUILDCONNECT is open to all recent graduates of the MUT Building Department. Current students in their final year may also be eligible for certain opportunities.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Is there any cost to join the platform?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, MUT BUILDCONNECT is completely free for graduates. The platform is funded by MUT as part of its graduate development initiative.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How long do volunteer opportunities typically last?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Project durations vary depending on the nature of the work. Most opportunities range from 2-6 months, with some shorter-term projects (2-4 weeks) and longer-term initiatives (6-12 months) available.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Will I receive any certification for completed projects?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, upon successful completion of a volunteer project, you will receive a certificate of participation and a detailed letter of recommendation that outlines your contributions and skills demonstrated during the project.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How many projects can I apply for at once?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can apply for up to 3 projects simultaneously. We recommend focusing on opportunities that best match your skills and career goals.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What support is available during volunteer projects?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>All projects have designated supervisors who provide guidance and support. Additionally, the MUT BUILDCONNECT team is available to address any concerns or issues that may arise during your volunteer placement.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">MUT BUILDCONNECT</div>
+                
+                <div class="footer-links">
+                    <a href="#" class="nav-link" data-target="about">About Us</a>
+                    <a href="#" class="nav-link" data-target="privacy">Privacy Policy</a>
+                    <a href="#" class="nav-link" data-target="terms">Terms of Service</a>
+                    <a href="#" class="nav-link" data-target="contact">Contact</a>
+                    <a href="#" class="nav-link" data-target="faq">FAQ</a>
+                </div>
+                
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+                
+                <p>&copy; 2023 MUT BUILDCONNECT. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation between main and info content
+            const navMainLinks = document.querySelectorAll('.nav-main');
+            const navInfoLinks = document.querySelectorAll('.nav-info');
+            const mainContent = document.querySelector('.main-content');
+            const infoContent = document.querySelector('.info-content');
+            
+            navMainLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    mainContent.style.display = 'block';
+                    infoContent.style.display = 'none';
+                    window.scrollTo(0, 0);
+                });
+            });
+            
+            navInfoLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    mainContent.style.display = 'none';
+                    infoContent.style.display = 'block';
+                    window.scrollTo(0, 0);
+                });
+            });
+            
+            // Info page navigation functionality
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and sections
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    contentSections.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Show corresponding section
+                    const target = this.getAttribute('data-target');
+                    document.getElementById(target).classList.add('active');
+                    
+                    // If we're not already on the info page, switch to it
+                    if (mainContent.style.display !== 'none') {
+                        mainContent.style.display = 'none';
+                        infoContent.style.display = 'block';
+                    }
+                    
+                    window.scrollTo(0, 0);
+                });
+            });
+            
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+                    
+                    // In a real app, this would filter projects based on the selected tab
+                });
+            });
+            
+            // Login/Register button functionality
+            const loginBtn = document.querySelector('.btn-outline');
+            const registerBtn = document.querySelector('.btn-primary');
+            
+            loginBtn.addEventListener('click', () => {
+                alert('Login functionality would be implemented here.');
+            });
+            
+            registerBtn.addEventListener('click', () => {
+                alert('Registration functionality would be implemented here.');
+            });
+            
+            // Form submission
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    alert('Thank you for your submission!');
+                    form.reset();
+                });
+            });
+            
+            // FAQ toggle functionality
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    // Toggle answer visibility
+                    if (answer.style.display === 'block') {
+                        answer.style.display = 'none';
+                        icon.classList.remove('fa-chevron-up');
+                        icon.classList.add('fa-chevron-down');
+                    } else {
+                        answer.style.display = 'block';
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
+                    }
+                });
+            });
+            
+            // Hide all FAQ answers initially
+            document.querySelectorAll('.faq-answer').forEach(answer => {
+                answer.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
