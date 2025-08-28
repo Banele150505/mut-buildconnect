@@ -483,6 +483,125 @@
             color: var(--accent);
         }
 
+        /* Auth Modal Styles */
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .auth-modal.active {
+            display: flex;
+        }
+
+        .auth-container {
+            background: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 450px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .auth-header h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+        }
+
+        .auth-tab.active {
+            border-bottom: 3px solid var(--secondary);
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--secondary);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .form-footer a {
+            color: var(--accent);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .user-menu {
+            display: none;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-menu.active {
+            display: flex;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -495,7 +614,7 @@
                 gap: 15px;
             }
             
-            .auth-buttons {
+            .auth-buttons, .user-menu {
                 flex-direction: column;
                 width: 100%;
                 gap: 10px;
@@ -556,13 +675,100 @@
                         <li><a href="#" class="nav-info" data-section="info">Contact</a></li>
                     </ul>
                 </nav>
-                <div class="auth-buttons">
-                    <button class="btn btn-outline">Login</button>
-                    <button class="btn btn-primary">Register</button>
+                <div class="auth-buttons" id="authButtons">
+                    <button class="btn btn-outline" id="loginBtn">Login</button>
+                    <button class="btn btn-primary" id="registerBtn">Register</button>
+                </div>
+                <div class="user-menu" id="userMenu">
+                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <span id="userName">John Doe</span>
+                    <button class="btn btn-outline" id="logoutBtn">Logout</button>
                 </div>
             </div>
         </div>
     </header>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-container">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <div class="auth-header">
+                <h2>Welcome to MUT BUILDCONNECT</h2>
+                <p>Access your account or create a new one</p>
+            </div>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Login</div>
+                <div class="auth-tab" data-tab="register">Register</div>
+            </div>
+            
+            <form class="auth-form active" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" style="width: 100%">Login</button>
+                </div>
+                
+                <div class="form-footer">
+                    <p>Don't have an account? <a id="switchToRegister">Register now</a></p>
+                </div>
+            </form>
+            
+            <form class="auth-form" id="registerForm">
+                <div class="form-group">
+                    <label for="regFirstName">First Name</label>
+                    <input type="text" id="regFirstName" class="form-control" placeholder="Enter your first name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regLastName">Last Name</label>
+                    <input type="text" id="regLastName" class="form-control" placeholder="Enter your last name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regEmail">Email Address</label>
+                    <input type="email" id="regEmail" class="form-control" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" class="form-control" placeholder="Create a password" required minlength="6">
+                </div>
+                
+                <div class="form-group">
+                    <label for="regConfirmPassword">Confirm Password</label>
+                    <input type="password" id="regConfirmPassword" class="form-control" placeholder="Confirm your password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="regPhone">Phone Number</label>
+                    <input type="tel" id="regPhone" class="form-control" placeholder="Enter your phone number">
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="regTerms" required> I agree to the <a href="#" class="nav-link" data-target="terms">Terms of Service</a> and <a href="#" class="nav-link" data-target="privacy">Privacy Policy</a>
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" style="width: 100%">Create Account</button>
+                </div>
+                
+                <div class="form-footer">
+                    <p>Already have an account? <a id="switchToLogin">Login now</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <div class="main-content">
         <section class="hero">
@@ -662,7 +868,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="resume">Upload Qualification (PDF)</label>
+                        <label for="resume">Upload Resume (PDF)</label>
                         <input type="file" id="resume" class="form-control" accept=".pdf">
                     </div>
                     
@@ -922,6 +1128,195 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in (from localStorage)
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const authButtons = document.getElementById('authButtons');
+            const userMenu = document.getElementById('userMenu');
+            const userName = document.getElementById('userName');
+            const userAvatar = document.getElementById('userAvatar');
+            
+            if (currentUser) {
+                // User is logged in
+                authButtons.style.display = 'none';
+                userMenu.style.display = 'flex';
+                userName.textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+                userAvatar.textContent = `${currentUser.firstName.charAt(0)}${currentUser.lastName.charAt(0)}`;
+            } else {
+                // User is not logged in
+                authButtons.style.display = 'flex';
+                userMenu.style.display = 'none';
+            }
+            
+            // Auth Modal Elements
+            const authModal = document.getElementById('authModal');
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+            const closeModal = document.getElementById('closeModal');
+            const authTabs = document.querySelectorAll('.auth-tab');
+            const authForms = document.querySelectorAll('.auth-form');
+            const switchToRegister = document.getElementById('switchToRegister');
+            const switchToLogin = document.getElementById('switchToLogin');
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const logoutBtn = document.getElementById('logoutBtn');
+            
+            // Open modal when login/register buttons are clicked
+            loginBtn.addEventListener('click', () => {
+                authModal.classList.add('active');
+                switchToTab('login');
+            });
+            
+            registerBtn.addEventListener('click', () => {
+                authModal.classList.add('active');
+                switchToTab('register');
+            });
+            
+            // Close modal
+            closeModal.addEventListener('click', () => {
+                authModal.classList.remove('active');
+            });
+            
+            // Close modal when clicking outside
+            authModal.addEventListener('click', (e) => {
+                if (e.target === authModal) {
+                    authModal.classList.remove('active');
+                }
+            });
+            
+            // Switch between login and register tabs
+            authTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabName = tab.getAttribute('data-tab');
+                    switchToTab(tabName);
+                });
+            });
+            
+            // Switch to register form from login form
+            switchToRegister.addEventListener('click', () => {
+                switchToTab('register');
+            });
+            
+            // Switch to login form from register form
+            switchToLogin.addEventListener('click', () => {
+                switchToTab('login');
+            });
+            
+            // Function to switch tabs
+            function switchToTab(tabName) {
+                authTabs.forEach(tab => {
+                    if (tab.getAttribute('data-tab') === tabName) {
+                        tab.classList.add('active');
+                    } else {
+                        tab.classList.remove('active');
+                    }
+                });
+                
+                authForms.forEach(form => {
+                    if (form.id === `${tabName}Form`) {
+                        form.classList.add('active');
+                    } else {
+                        form.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Login form submission
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                // Get users from localStorage
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                
+                // Find user with matching credentials
+                const user = users.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    // Login successful
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    authModal.classList.remove('active');
+                    
+                    // Update UI
+                    authButtons.style.display = 'none';
+                    userMenu.style.display = 'flex';
+                    userName.textContent = `${user.firstName} ${user.lastName}`;
+                    userAvatar.textContent = `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`;
+                    
+                    alert('Login successful! Welcome back.');
+                } else {
+                    // Login failed
+                    alert('Invalid email or password. Please try again.');
+                }
+            });
+            
+            // Register form submission
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const firstName = document.getElementById('regFirstName').value;
+                const lastName = document.getElementById('regLastName').value;
+                const email = document.getElementById('regEmail').value;
+                const password = document.getElementById('regPassword').value;
+                const confirmPassword = document.getElementById('regConfirmPassword').value;
+                const phone = document.getElementById('regPhone').value;
+                
+                // Validate passwords match
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match. Please try again.');
+                    return;
+                }
+                
+                // Get existing users from localStorage
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                
+                // Check if email already exists
+                if (users.some(user => user.email === email)) {
+                    alert('This email is already registered. Please use a different email or login.');
+                    return;
+                }
+                
+                // Create new user object
+                const newUser = {
+                    firstName,
+                    lastName,
+                    email,
+                    password,
+                    phone,
+                    joinDate: new Date().toISOString()
+                };
+                
+                // Add new user to users array
+                users.push(newUser);
+                
+                // Save updated users array to localStorage
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                // Auto-login the new user
+                localStorage.setItem('currentUser', JSON.stringify(newUser));
+                
+                // Close modal and update UI
+                authModal.classList.remove('active');
+                authButtons.style.display = 'none';
+                userMenu.style.display = 'flex';
+                userName.textContent = `${firstName} ${lastName}`;
+                userAvatar.textContent = `${firstName.charAt(0)}${lastName.charAt(0)}`;
+                
+                alert('Registration successful! Welcome to MUT BUILDCONNECT.');
+                
+                // Reset form
+                registerForm.reset();
+            });
+            
+            // Logout functionality
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('currentUser');
+                authButtons.style.display = 'flex';
+                userMenu.style.display = 'none';
+                alert('You have been logged out successfully.');
+            });
+            
             // Navigation between main and info content
             const navMainLinks = document.querySelectorAll('.nav-main');
             const navInfoLinks = document.querySelectorAll('.nav-info');
@@ -988,26 +1383,16 @@
                 });
             });
             
-            // Login/Register button functionality
-            const loginBtn = document.querySelector('.btn-outline');
-            const registerBtn = document.querySelector('.btn-primary');
-            
-            loginBtn.addEventListener('click', () => {
-                alert('Login functionality would be implemented here.');
-            });
-            
-            registerBtn.addEventListener('click', () => {
-                alert('Registration functionality would be implemented here.');
-            });
-            
             // Form submission
             const forms = document.querySelectorAll('form');
             forms.forEach(form => {
-                form.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    alert('Thank you for your submission!');
-                    form.reset();
-                });
+                if (form.id !== 'loginForm' && form.id !== 'registerForm') {
+                    form.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        alert('Thank you for your submission!');
+                        form.reset();
+                    });
+                }
             });
             
             // FAQ toggle functionality
